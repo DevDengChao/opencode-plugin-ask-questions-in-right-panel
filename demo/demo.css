@@ -1,0 +1,407 @@
+:root {
+  --v2-background-bg-base: #ffffff;
+  --v2-background-bg-layer-01: #f7f7f8;
+  --v2-background-bg-layer-02: #ececef;
+  --v2-background-bg-layer-03: #e2e2e6;
+  --v2-border-border-muted: rgba(17, 17, 19, 0.1);
+  --v2-border-border-base: rgba(17, 17, 19, 0.2);
+  --v2-text-text-base: #17171a;
+  --v2-text-text-faint: #74747c;
+  --v2-text-text-accent: #0a84ff;
+  --v2-text-text-success: #1a9d5a;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --v2-background-bg-base: #17171a;
+  --v2-background-bg-layer-01: #202024;
+  --v2-background-bg-layer-02: #2a2a30;
+  --v2-background-bg-layer-03: #34343b;
+  --v2-border-border-muted: rgba(255, 255, 255, 0.1);
+  --v2-border-border-base: rgba(255, 255, 255, 0.22);
+  --v2-text-text-base: #f1f1f3;
+  --v2-text-text-faint: #a2a2ac;
+  --v2-text-text-accent: #5ab0ff;
+  --v2-text-text-success: #4ac47f;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--v2-background-bg-layer-01);
+  color: var(--v2-text-text-base);
+  font-family: Inter, "Segoe UI", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.demo {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.demo-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--v2-border-border-muted);
+  background: var(--v2-background-bg-base);
+}
+
+.demo-bar strong {
+  font-size: 13px;
+  margin-inline-end: 8px;
+}
+
+.demo-spacer {
+  flex: 1;
+}
+
+.demo-chip {
+  font: inherit;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--v2-border-border-muted);
+  background: transparent;
+  color: var(--v2-text-text-faint);
+  cursor: pointer;
+}
+
+.demo-chip:hover {
+  background: var(--v2-background-bg-layer-02);
+  color: var(--v2-text-text-base);
+}
+
+.demo-chip[data-active="true"] {
+  color: var(--v2-text-text-accent);
+  border-color: color-mix(in srgb, var(--v2-text-text-accent) 45%, transparent);
+  background: color-mix(in srgb, var(--v2-text-text-accent) 10%, transparent);
+}
+
+.demo-knob {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--v2-text-text-faint);
+}
+
+.demo-knob input {
+  width: 110px;
+  accent-color: var(--v2-text-text-accent);
+}
+
+.demo-stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  padding: 16px;
+}
+
+.demo-window {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  background: var(--v2-background-bg-base);
+  border: 1px solid var(--v2-border-border-muted);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.demo-timeline {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 28px 32px 140px;
+  overflow: auto;
+}
+
+.demo-msg {
+  max-width: 640px;
+  font-size: 13.5px;
+}
+
+.demo-msg p {
+  margin: 0 0 10px;
+}
+
+.demo-who {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--v2-text-text-faint);
+  margin-bottom: 6px;
+}
+
+.demo-bubble {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--v2-border-border-muted);
+  background: var(--v2-background-bg-layer-02);
+}
+
+.demo-tool {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 4px 12px 4px 8px;
+  border: 1px solid var(--v2-border-border-muted);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--v2-text-text-faint);
+}
+
+.demo-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--v2-text-text-success);
+}
+
+.demo-faint {
+  color: var(--v2-text-text-faint);
+  font-size: 12.5px;
+}
+
+.demo-composer {
+  margin-top: auto;
+  max-width: 640px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--v2-border-border-base);
+  border-radius: 12px;
+  color: var(--v2-text-text-faint);
+  font-size: 13px;
+}
+
+.demo-send {
+  margin-inline-start: auto;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--v2-text-text-accent);
+  color: #fff;
+}
+
+.demo-window[data-dock="true"] .demo-composer {
+  display: none;
+}
+
+.demo-side {
+  flex: none;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-inline-start: 1px solid var(--v2-border-border-muted);
+  background: var(--v2-background-bg-layer-01);
+}
+
+.demo-strip {
+  flex: none;
+  display: flex;
+  gap: 2px;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--v2-border-border-muted);
+  background: var(--v2-background-bg-base);
+}
+
+.demo-tab {
+  padding: 5px 10px;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  font-size: 12px;
+  color: var(--v2-text-text-faint);
+}
+
+.demo-tab[data-active="true"] {
+  background: var(--v2-background-bg-layer-02);
+  border-color: var(--v2-border-border-muted);
+  color: var(--v2-text-text-base);
+}
+
+.demo-side .aqrp {
+  flex: 1;
+  min-height: 0;
+}
+
+/* --- mock host UI pieces --- */
+.demo-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px;
+  border: 1px solid var(--v2-border-border-base);
+  border-radius: 8px;
+  background: var(--v2-background-bg-base);
+  color: var(--v2-text-text-base);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.demo-button:hover {
+  background: var(--v2-background-bg-layer-02);
+}
+
+.demo-button[data-variant="ghost"] {
+  border-color: transparent;
+  background: transparent;
+  color: var(--v2-text-text-faint);
+}
+
+.demo-button[data-variant="ghost"]:hover {
+  background: var(--v2-background-bg-layer-02);
+  color: var(--v2-text-text-base);
+}
+
+.demo-button[data-variant="contrast"] {
+  border-color: var(--v2-text-text-accent);
+  background: var(--v2-text-text-accent);
+  color: #fff;
+}
+
+:root[data-theme="dark"] .demo-button[data-variant="contrast"] {
+  color: #08131f;
+}
+
+.demo-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.demo-spinner {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 1.6px solid currentColor;
+  border-top-color: transparent;
+  animation: demo-spin 0.7s linear infinite;
+}
+
+@keyframes demo-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.demo-icon-button {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--v2-text-text-faint);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.demo-icon-button:hover {
+  background: var(--v2-background-bg-layer-02);
+  color: var(--v2-text-text-base);
+}
+
+.demo-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 14px;
+  height: 14px;
+  font-size: 11px;
+}
+
+/* --- fallback dock --- */
+.demo-dock {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 14px;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.demo-dock-card {
+  pointer-events: auto;
+  width: min(620px, calc(100% - 48px));
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  border: 1px solid var(--v2-border-border-muted);
+  border-radius: 12px;
+  background: var(--v2-background-bg-base);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.24);
+}
+
+.demo-dock-card p {
+  margin: 0;
+  color: var(--v2-text-text-faint);
+  font-size: 12.5px;
+}
+
+.demo-dock-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--v2-text-text-faint);
+}
+
+.demo-dock-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 6px;
+  border-top: 1px solid var(--v2-border-border-muted);
+}
+
+.demo-toast {
+  position: absolute;
+  inset-inline-end: 18px;
+  bottom: 18px;
+  max-width: 320px;
+  padding: 10px 12px;
+  border: 1px solid var(--v2-border-border-base);
+  border-radius: 10px;
+  background: var(--v2-background-bg-base);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.24);
+  font-size: 12.5px;
+}
+
+html[data-clean] .demo-bar {
+  display: none;
+}
+
+html[data-clean] .demo-stage {
+  padding: 0;
+}
+
+html[data-clean] .demo-window {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}

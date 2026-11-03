@@ -1,0 +1,406 @@
+/*
+ * While this plugin's question panel is on screen, the host's bottom question dock would show the
+ * same question a second time. The attribute is set only for a visible panel, so closing the panel,
+ * hiding the side region or narrowing the window restores the dock with no extra work.
+ */
+html[data-aqrp-dock] [data-component="dock-prompt"][data-kind="question"] {
+  display: none;
+}
+
+.aqrp-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.aqrp-tab > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.aqrp {
+  --aqrp-bg: var(--v2-background-bg-layer-01, #f7f7f8);
+  --aqrp-surface: var(--v2-background-bg-base, #ffffff);
+  --aqrp-hover: var(--v2-background-bg-layer-02, #ececef);
+  --aqrp-border: var(--v2-border-border-muted, rgba(17, 17, 19, 0.1));
+  --aqrp-border-strong: var(--v2-border-border-base, rgba(17, 17, 19, 0.2));
+  --aqrp-text: var(--v2-text-text-base, #17171a);
+  --aqrp-faint: var(--v2-text-text-faint, #74747c);
+  --aqrp-accent: var(--v2-text-text-accent, #0a84ff);
+  --aqrp-good: var(--v2-text-text-success, #1a9d5a);
+
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  background: var(--aqrp-bg);
+  color: var(--aqrp-text);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.aqrp-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--aqrp-border);
+  flex: none;
+}
+
+.aqrp-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--aqrp-faint);
+}
+
+.aqrp-count {
+  margin-inline-start: auto;
+  font-size: 11.5px;
+  color: var(--aqrp-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.aqrp-queue {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  gap: 2px;
+  border-bottom: 1px solid var(--aqrp-border);
+  background: var(--aqrp-surface);
+  max-height: 168px;
+  overflow: auto;
+}
+
+.aqrp-queue-title {
+  font-size: 11px;
+  color: var(--aqrp-faint);
+  padding: 2px 6px 4px;
+}
+
+.aqrp-queue-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--aqrp-faint);
+  font: inherit;
+  font-size: 12.5px;
+  text-align: start;
+  cursor: pointer;
+}
+
+.aqrp-queue-item:hover {
+  background: var(--aqrp-hover);
+}
+
+.aqrp-queue-item[data-active="true"] {
+  background: color-mix(in srgb, var(--aqrp-accent) 10%, transparent);
+  color: var(--aqrp-text);
+}
+
+.aqrp-queue-badge {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 1px solid var(--aqrp-border);
+  background: var(--aqrp-bg);
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.aqrp-queue-item[data-active="true"] .aqrp-queue-badge {
+  border-color: color-mix(in srgb, var(--aqrp-accent) 55%, transparent);
+  color: var(--aqrp-accent);
+}
+
+.aqrp-queue-label {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.aqrp-queue-session {
+  font-size: 10.5px;
+  color: var(--aqrp-faint);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.aqrp-queue-form {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.aqrp-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 12px;
+}
+
+.aqrp-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.aqrp-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.aqrp-section + .aqrp-section {
+  border-top: 1px solid var(--aqrp-border);
+  padding-top: 16px;
+}
+
+.aqrp-section-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+}
+
+.aqrp-index {
+  flex: none;
+  width: 19px;
+  height: 19px;
+  margin-top: 1px;
+  border-radius: 6px;
+  border: 1px solid var(--aqrp-border);
+  background: var(--aqrp-surface);
+  color: var(--aqrp-faint);
+  font-size: 11px;
+  display: grid;
+  place-items: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.aqrp-section[data-answered="true"] .aqrp-index {
+  border-color: color-mix(in srgb, var(--aqrp-good) 55%, transparent);
+  color: var(--aqrp-good);
+  background: color-mix(in srgb, var(--aqrp-good) 10%, var(--aqrp-surface));
+}
+
+.aqrp-section-title {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.aqrp-section-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.aqrp-section-desc {
+  color: var(--aqrp-faint);
+  font-size: 12.5px;
+  white-space: pre-wrap;
+}
+
+.aqrp-answered {
+  flex: none;
+  margin-top: 2px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--aqrp-good) 40%, transparent);
+  background: color-mix(in srgb, var(--aqrp-good) 10%, transparent);
+  color: var(--aqrp-good);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.aqrp-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-inline-start: 28px;
+}
+
+.aqrp-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--aqrp-border);
+  border-radius: 9px;
+  background: var(--aqrp-surface);
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.aqrp-option:hover {
+  border-color: var(--aqrp-border-strong);
+}
+
+.aqrp-option:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--aqrp-accent) 60%, transparent);
+  outline-offset: 1px;
+}
+
+.aqrp-option[data-picked="true"] {
+  border-color: color-mix(in srgb, var(--aqrp-accent) 55%, transparent);
+  background: color-mix(in srgb, var(--aqrp-accent) 10%, var(--aqrp-surface));
+}
+
+.aqrp-key {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border: 1px solid var(--aqrp-border);
+  background: var(--aqrp-bg);
+  color: var(--aqrp-faint);
+  font-size: 11px;
+  display: grid;
+  place-items: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.aqrp-option[data-picked="true"] .aqrp-key {
+  border-color: color-mix(in srgb, var(--aqrp-accent) 55%, transparent);
+  color: var(--aqrp-accent);
+  background: var(--aqrp-surface);
+}
+
+.aqrp-mark {
+  flex: none;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  border: 1.5px solid var(--aqrp-border-strong);
+  background: var(--aqrp-surface);
+}
+
+.aqrp-mark[data-kind="radio"] {
+  border-radius: 999px;
+}
+
+.aqrp-mark[data-kind="check"] {
+  border-radius: 5px;
+}
+
+.aqrp-option[data-picked="true"] .aqrp-mark {
+  border-color: var(--aqrp-accent);
+  background: var(--aqrp-accent);
+}
+
+.aqrp-option[data-picked="true"] .aqrp-mark[data-kind="radio"]::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 999px;
+  background: var(--aqrp-surface);
+}
+
+.aqrp-option[data-picked="true"] .aqrp-mark[data-kind="check"]::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid var(--aqrp-surface);
+  border-width: 0 1.8px 1.8px 0;
+  transform: rotate(45deg);
+}
+
+.aqrp-option-body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.aqrp-option-label {
+  font-size: 13.5px;
+}
+
+.aqrp-option-desc {
+  color: var(--aqrp-faint);
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+
+.aqrp-textarea {
+  width: 100%;
+  min-height: 54px;
+  resize: vertical;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--aqrp-text);
+  background: var(--aqrp-surface);
+  border: 1px solid var(--aqrp-border-strong);
+  border-radius: 9px;
+  padding: 8px 10px;
+  outline: none;
+}
+
+.aqrp-textarea:focus {
+  border-color: var(--aqrp-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--aqrp-accent) 14%, transparent);
+}
+
+.aqrp-custom-option .aqrp-option-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.aqrp-option[data-editing="true"] {
+  border-color: var(--aqrp-border-strong);
+}
+
+.aqrp-custom {
+  margin-top: 6px;
+  width: 100%;
+  min-height: 46px;
+  background: var(--aqrp-bg);
+}
+
+.aqrp-free-text {
+  margin-inline-start: 28px;
+}
+
+.aqrp-footer {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--aqrp-border);
+  background: var(--aqrp-bg);
+}
+
+.aqrp-spacer {
+  flex: 1;
+}
+
+.aqrp-empty {
+  margin: 0;
+  padding: 24px 8px;
+  color: var(--aqrp-faint);
+  text-align: center;
+}
